@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .alertDiv{
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .5 );
+            position: absolute;
+            left: 0;
+            top:0;
+        }
+
+        .alertDiv_box{
+            width: 300px;
+            height: 230px;
+            background: #fff;
+            position: absolute;
+            left: 50%;
+            top:50%;
+            transform: translate3d(-50%,-50%,0);
+        }
+
+        h2{
+            text-align: center;
+            line-height: 38px;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">点击</button>
+    <script>
+        "use strict"
+
+        let config = {
+            "tlt":'word ***',
+            "content":"按实际大手大脚阿萨德",
+            "btn":["确定","取消"]
+        };
+
+            class alertDiv {
+                constructor(opt,config){
+                    var config = Object.assign({},config,opt);
+                    this.tlt = config.tlt;
+                    this.content = config.content;
+                    this.str = '';
+                    this.alertDiv = null;
+                    this.alert();
+                    this.onOff = false;
+                }
+            /* extend(){
+                var arg = arguments[0];
+                for(var i = 1; i < arguments.length;i++){
+                    for(var key in arguments[i]){
+                        arg[key] = arguments[i][key];
+                    }
+                }
+                return arg;
+            } */
+            alert(){
+                var that = this;
+                this.alertDiv = document.createElement('div');
+                this.alertDiv.className = 'alertDiv';
+                this.str = `<div class="alertDiv_box">
+                                <h2>${this.tlt}</h2>
+                                <p>${this.content}</p>
+                                <div class="alertDiv_btn">
+                                    <span>${config.btn[0]}</span>
+                                    <span>${config.btn[1]}</span>
+                                </div>
+                            </div>`;
+                this.alertDiv.innerHTML = this.str;
+                document.body.appendChild(that.alertDiv);
+                that.alertDiv.onclick = function(){
+                    if(that.alertDiv){
+                        that.alertDiv.parentNode.removeChild(that.alertDiv);
+                    }
+                }
+                let alertDivBox = document.getElementsByClassName('alertDiv_box')[0];
+                alertDivBox.onclick = function(ev){
+                    var ev = ev || window.event;
+                    ev.stopPropagation();
+                }
+            }
+        }
+
+        var btn = document.getElementById('btn');
+        
+        var obj = {
+            tlt:'hello ***',
+            content:"按实际大手大脚阿萨德",
+            btn:["确定","取消"]
+        }
+
+        btn.onclick = function(){
+            new alertDiv(obj)
+            return false;
+        }
+
+    </script>
+</body>
+</html>
